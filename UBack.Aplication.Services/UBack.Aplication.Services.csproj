@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UBack.Aplication.Dtos\UBack.Aplication.Dtos.csproj" />
+    <ProjectReference Include="..\UBack.Aplication.Interfaces\UBack.Aplication.Interfaces.csproj" />
+    <ProjectReference Include="..\UBack.Transversal.Common\UBack.Transversal.Common.csproj" />
+  </ItemGroup>
+
+</Project>

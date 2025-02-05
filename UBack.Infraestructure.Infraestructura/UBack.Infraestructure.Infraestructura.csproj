@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UBack.Aplication.Interfaces\UBack.Aplication.Interfaces.csproj" />
+    <ProjectReference Include="..\UBack.Infraestructure.Persistence\UBack.Infraestructure.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
