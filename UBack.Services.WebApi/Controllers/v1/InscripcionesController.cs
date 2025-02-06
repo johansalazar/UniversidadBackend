@@ -14,44 +14,33 @@ namespace UBack.Services.WebApi.Controllers.v1
         private readonly InscripcionUseCases _inscripcionUseCases = inscripcionUseCases;
 
         /// <summary>
-        /// Método para crear un nuevo Inscripcion.
+        /// Método para crear una nueva inscripción.
         /// </summary>
-        /// <param name="InscripcionDto"></param>
-        /// <returns></returns>
         [HttpPost("AddInscripcion")]
         public async Task<IActionResult> AddInscripcion([FromBody] InscripcionDTO InscripcionDto)
         {
             if (InscripcionDto == null)
-                return BadRequest("El Inscripcion no puede ser nulo.");
+                return BadRequest("La inscripción no puede ser nula.");
 
             var response = await _inscripcionUseCases.AddInscripcionAsync(InscripcionDto);
-            if (response.IsSuccess)
-                return Ok(response);
-
-            return BadRequest(response.Message);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
         }
 
         /// <summary>
-        /// Método para eliminar un Inscripcion por su ID.
+        /// Método para eliminar una inscripción por su ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete("DeleteInscripcion/{id}")]
         [Authorize]
         public async Task<IActionResult> DeleteInscripcion(int id)
         {
             var response = await _inscripcionUseCases.DeleteInscripcionAsync(id);
-            if (response.IsSuccess)
-                return Ok(response);
-
-            return BadRequest(response.Message);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
         }
 
         /// <summary>
-        /// Método para obtener todos los Inscripcions.
+        /// Método para obtener todas las inscripciones.
         /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetAllInscripcions")]
+        [HttpGet("GetAllInscripciones")]
         [Authorize]
         public async Task<IActionResult> GetAllInscripcions()
         {
@@ -60,40 +49,62 @@ namespace UBack.Services.WebApi.Controllers.v1
         }
 
         /// <summary>
-        /// Método para obtener un Inscripcion por su ID.
+        /// Método para obtener una inscripción por su ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("GetInscripcionById/{id}")]
         [Authorize]
         public async Task<IActionResult> GetInscripcionById(int id)
         {
             var response = await _inscripcionUseCases.GetInscripcionByIdAsync(id);
-            if (response == null)
-                return NotFound("Inscripcion no encontrado.");
-
-            return Ok(response);
+            return response == null ? NotFound("Inscripción no encontrada.") : Ok(response);
         }
 
         /// <summary>
-        /// Método para actualizar un Inscripcion existente.
+        /// Método para actualizar una inscripción existente.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="InscripcionDto"></param>
-        /// <returns></returns>
         [HttpPut("UpdateInscripcion/{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateInscripcion(int id, [FromBody] InscripcionDTO InscripcionDto)
         {
             if (InscripcionDto == null)
-                return BadRequest("El Inscripcion no puede ser nulo.");
+                return BadRequest("La inscripción no puede ser nula.");
 
             InscripcionDto.Id = id;
             var response = await _inscripcionUseCases.UpdateInscripcionAsync(id, InscripcionDto);
-            if (response.IsSuccess)
-                return Ok(response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
+        }
 
-            return BadRequest(response.Message);
+        /// <summary>
+        /// Obtener la cantidad de materias inscritas por un estudiante específico.
+        /// </summary>
+        [HttpGet("GetMateriasInscritasPorEstudiante/{idEstudiante}")]
+        public async Task<IActionResult> GetMateriasInscritasPorEstudiante(int idEstudiante)
+        {
+            var response = await _inscripcionUseCases.GetMateriasInscritasPorEstudiante(idEstudiante);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
+        }
+
+        /// <summary>
+        /// Verificar si un estudiante tiene otras materias con el mismo profesor.
+        /// </summary>
+        [HttpGet("GetMateriasConMismoProfesor/{idEstudiante}/{idMateria}")]
+        public async Task<IActionResult> GetMateriasConMismoProfesor(int idEstudiante, int idMateria)
+        {
+            var response = await _inscripcionUseCases.GetMateriasConMismoProfesor(idEstudiante, idMateria);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
+        }
+
+        /// <summary>
+        /// Listar los compañeros de clase en las materias del estudiante.
+        /// </summary>
+        [HttpPost("GetCompanerosPorMateria")]
+        public async Task<IActionResult> GetCompanerosPorMateria([FromBody] List<int> idMaterias)
+        {
+            if (idMaterias == null || !idMaterias.Any())
+                return BadRequest("La lista de materias no puede estar vacía.");
+
+            var response = await _inscripcionUseCases.GetCompanerosPorMateria(idMaterias);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
         }
     }
 }

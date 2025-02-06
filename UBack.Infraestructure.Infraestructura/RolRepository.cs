@@ -36,7 +36,7 @@ namespace UBack.Infraestructure.Infraestructura
 
 
                 // Marcar la entidad como modificada
-                _context.Roles.Update(Rol);
+                _context.Roles.Remove(Rol);
 
                 await _context.SaveChangesAsync();
                 return true;

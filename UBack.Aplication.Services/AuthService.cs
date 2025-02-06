@@ -57,6 +57,8 @@ namespace UBack.Aplication.Services
             {
                 Name = foundUser.Nombre,
                 Token = jwtToken,
+                Rol = foundUser.IdRol,
+                Id = foundUser.Id,
                 Expiration = token.ValidTo
             };
             Response<AuthResponseDTO> response = new Response<AuthResponseDTO>();

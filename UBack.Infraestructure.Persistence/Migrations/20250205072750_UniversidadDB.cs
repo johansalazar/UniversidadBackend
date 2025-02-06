@@ -73,15 +73,14 @@ namespace UBack.Infraestructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdEstudiante = table.Column<int>(type: "int", nullable: false),
-                    IdMateria = table.Column<int>(type: "int", nullable: false),
-                    MateriaId = table.Column<int>(type: "int", nullable: true)
+                    IdMateria = table.Column<int>(type: "int", nullable: false)                   
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inscripciones", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Inscripciones_Materias_MateriaId",
-                        column: x => x.MateriaId,
+                        column: x => x.IdMateria,
                         principalTable: "Materias",
                         principalColumn: "Id");
                     table.ForeignKey(

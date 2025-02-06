@@ -9,9 +9,9 @@ namespace UBack.Domain.Dominio.Entities
     public class Inscripcion
     {
         public int Id { get; set; }
-        public int IdEstudiante { get; set; }
-        public Usuario? Estudiante { get; set; }
+        public int IdEstudiante { get; set; }       
         public int IdMateria { get; set; }
-        public Materia? Materia { get; set; }
+        public Usuario? Estudiante { get; set; }
+        
     }
 }

@@ -34,16 +34,11 @@ namespace UBack.Infraestructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IdMateria")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MateriaId")
-                        .HasColumnType("int");
+                        .HasColumnType("int");                   
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstudiante");
-
-                    b.HasIndex("MateriaId");
+                    b.HasIndex("IdEstudiante");                 
 
                     b.ToTable("Inscripciones");
                 });
@@ -125,7 +120,7 @@ namespace UBack.Infraestructure.Persistence.Migrations
 
                     b.HasOne("UBack.Domain.Dominio.Entities.Materia", "Materia")
                         .WithMany()
-                        .HasForeignKey("MateriaId");
+                        .HasForeignKey("IdMateria");
 
                     b.Navigation("Estudiante");
 

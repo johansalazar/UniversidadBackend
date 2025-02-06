@@ -35,7 +35,7 @@ namespace UBack.Infraestructure.Infraestructura
 
 
                 // Marcar la entidad como modificada
-                _context.Usuarios.Update(usuario);
+                _context.Usuarios.Remove(usuario);
 
                 await _context.SaveChangesAsync();
                 return true;

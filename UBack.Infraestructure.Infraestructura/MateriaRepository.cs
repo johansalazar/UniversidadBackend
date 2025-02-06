@@ -36,7 +36,7 @@ namespace UBack.Infraestructure.Infraestructura
 
 
                 // Marcar la entidad como modificada
-                _context.Materias.Update(Materia);
+                _context.Materias.Remove(Materia);
 
                 await _context.SaveChangesAsync();
                 return true;

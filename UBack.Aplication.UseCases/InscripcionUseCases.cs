@@ -131,6 +131,66 @@ namespace UBack.Aplication.UseCases
 
             return response;
         }
+
+        //Obtener la cantidad de materias inscritas por un estudiante específico
+        public async Task<Response<int>> GetMateriasInscritasPorEstudiante(int idEstudiante)
+        {
+            var response = new Response<int>();
+            try
+            {
+                var result = await _InscripcionRepository.GetMateriasInscritasPorEstudiante(idEstudiante);
+                response.Data = result;
+                response.IsSuccess = true;
+                response.Message = $"El estudiante con ID {idEstudiante} tiene {result} materias inscritas.";
+            }
+            catch (Exception e)
+            {
+                response.IsSuccess = false;
+                response.Message = $"Error: {e.Message}";
+            }
+            return response;
+        }
+
+        //Verificar si un estudiante tiene otras materias con el mismo profesor
+        public async Task<Response<int>> GetMateriasConMismoProfesor(int idEstudiante, int idMateria)
+        {
+            var response = new Response<int>();
+            try
+            {
+                var result = await _InscripcionRepository.GetMateriasConMismoProfesor(idEstudiante, idMateria);
+                response.Data = result;
+                response.IsSuccess = true;
+                response.Message = $"El estudiante con ID {idEstudiante} tiene {result} materias más con el mismo profesor.";
+            }
+            catch (Exception e)
+            {
+                response.IsSuccess = false;
+                response.Message = $"Error: {e.Message}";
+            }
+            return response;
+        }
+
+        //Listar los compañeros de clase en las materias del estudiante
+        public async Task<Response<List<object>>> GetCompanerosPorMateria(List<int> idMaterias)
+        {
+            var response = new Response<List<object>>();
+            try
+            {
+                var result = await _InscripcionRepository.GetCompanerosPorMateria(idMaterias);
+                response.Data = result;
+                response.IsSuccess = result.Count > 0;
+                response.Message = result.Count > 0
+                    ? "Se encontraron compañeros en las materias inscritas."
+                    : "No se encontraron compañeros en las materias inscritas.";
+            }
+            catch (Exception e)
+            {
+                response.IsSuccess = false;
+                response.Message = $"Error: {e.Message}";
+            }
+            return response;
+        }
+
     }
 }
 
